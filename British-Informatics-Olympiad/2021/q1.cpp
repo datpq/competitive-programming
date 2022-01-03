@@ -7,22 +7,6 @@ using namespace std;
 
 unordered_map<string, bool> calculated;
 
-char min_char(string s) {
-	char ans = s[0];
-	for (auto c : s) {
-		if (c < ans) ans = c;
-	}
-	return ans;
-}
-
-char max_char(string s) {
-	char ans = s[0];
-	for (auto c : s) {
-		if (c > ans) ans = c;
-	}
-	return ans;
-}
-
 bool solve(string s) {
 	bool ans = false;
 	if (s.length() == 1) {
@@ -35,7 +19,7 @@ bool solve(string s) {
 		for (int i = 1; i < s.length(); i++) {
 			string sLeft = s.substr(0, i);
 			string sRight = s.substr(i, s.length() - i);
-			if (min_char(sLeft) > max_char(sRight)) {
+			if (*min_element(sLeft.begin(), sLeft.end()) > *max_element(sRight.begin(), sRight.end())) {
 				reverse(sLeft.begin(), sLeft.end());
 				reverse(sRight.begin(), sRight.end());
 				ans = solve(sLeft) && solve(sRight);
