@@ -31,14 +31,15 @@ void generatePermutation(int idx, int sameCount) {
 	}
 }
 
+//9 / 27 marks
 int main() {
-	while (true) {
+	//while (true) {
 		cin >> p >> q >> r >> n;
 		string temp(r, ' ');
 		s = temp;
 		permutationCount = 0;
 		generatePermutation(0, 0);
-	}
+	//}
 
 	return 0;
 }

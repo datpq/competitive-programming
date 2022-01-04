@@ -9,7 +9,7 @@ British Informatics Olympiad
 | Year | Q1 | Q2 | Q3 |
 |-|-|-|-|
 | 2021 | ✅ | | ✅ |
-| 2020 | ✅ | ✅ | ✅ |
+| 2020 | ✅ | ✅ | Partial |
 | 2019 | ✅ | ✅ | Partial |
 
 Perse
