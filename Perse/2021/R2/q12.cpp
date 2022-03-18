@@ -5,13 +5,12 @@
 #include <algorithm>
 #include <climits>
 #include <tuple>
-#include <unordered_set>
 #include <set>
 
 using namespace std;
 
 vector<tuple<int, int, int>> schedules[10000];
-const int START_MIN = 5*60;
+const int START_MIN = 5 * 60;
 int earliest = INT_MAX;
 int n;
 set<pair<int, int>> alreadyPassed;
@@ -24,16 +23,16 @@ string intToTime(int t) {
 
 void DFS(int start, int currentTime) {
 	if (start == n) return;
-	if (alreadyPassed.count({ start, currentTime }) == 1) return;
+	if (alreadyPassed.count({ start, currentTime })) return;
 	alreadyPassed.insert({ start, currentTime });
-	unordered_set<int> seen;
-	for(auto it : schedules[start]) {
+	set<int> seen;
+	for (auto it : schedules[start]) {
 		int endTime = get<0>(it);
 		int startTime = get<1>(it);
 		int destination = get<2>(it);
 
 		if (endTime >= earliest) break;
-		if (seen.count(destination) == 1) continue;
+		if (seen.count(destination)) continue;
 		if (startTime >= currentTime + 3) {
 			if (destination == n) {
 				earliest = endTime;
@@ -55,10 +54,9 @@ int main() {
 		cin >> hour >> c >> minute;
 		int nEndTime = hour * 60 + minute;
 		if (nStartTime < START_MIN) continue;
-		tuple<int, int, int> sch = { nEndTime, nStartTime, end };
-		auto it = upper_bound(schedules[start].begin(), schedules[start].end(), sch);
-		schedules[start].insert(it, sch);
+		schedules[start].push_back({ nEndTime, nStartTime, end });
 	}
+	for (auto& x : schedules) sort(x.begin(), x.end());
 
 	DFS(1, START_MIN);
 	cout << intToTime(earliest);
