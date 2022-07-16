@@ -33,7 +33,7 @@ void solve() {
     while(true) {
         cout << "? " << (1 << idx) - cur << " " <<  (1 << (idx + 1)) - cur << endl;
         int gcd; cin >> gcd;
-        if (cur != 1) cur += gcd;
+        cur += (1 << (gcd-1));
     }
     cout << "! " << cur << endl;
 }
