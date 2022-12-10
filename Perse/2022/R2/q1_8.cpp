@@ -96,7 +96,7 @@ int main() {
     return 0;
 }
 
-//P7 8/10
+//P7
 #include <iostream>
 #include <math.h>
 using namespace std;
