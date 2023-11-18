@@ -40,7 +40,6 @@ int compute(vector<int> &pegs, int idx, int rem) {
 signed main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-
     bool subTaskA=true, subTaskB=true, subTaskC=true, subTaskD=true;
 
     set<Node> vis;
@@ -115,23 +114,46 @@ signed main() {
         cout << "C. After 4 moves: " << cnt4 << endl;
     }
     if (subTaskD) {
-        for(int i=0; i<(1<<24); i++) {
-            vector<int> pegs(8);
-            bool inOrder = true;
-            for(int j=0; j<8; j++) {
-                int h=1;
-                h += ((i>>(3*j+0)&1) << 0);
-                h += ((i>>(3*j+1)&1) << 1);
-                h += ((i>>(3*j+2)&1) << 2);
-                pegs[j] = h;
-                if (j && pegs[j]<pegs[j-1]) inOrder = false;
-            }
-            if (!inOrder) continue;
-            if (compute(pegs, 0, 8) == 2023) {
-                for(auto &x: pegs) cout << x << " ";
-                cout << endl;
+        //using 8 for loop instead of 1 big for loop from 1--> 1<<24
+        for(int i1=1; i1<=8; i1++) {
+            for(int i2=i1; i2<=8; i2++) {
+                for(int i3=i2; i3<=8; i3++) {
+                    for(int i4=i3; i4<=8; i4++) {
+                        for(int i5=i4; i5<=8; i5++) {
+                            for(int i6=i5; i6<=8; i6++) {
+                                for(int i7=i6; i7<=8; i7++) {
+                                    for(int i8=i7; i8<=8; i8++) {
+                                        vector<int> pegs = {i1, i2, i3, i4, i5, i6, i7, i8};
+                                        if (compute(pegs, 0, 8) == 2023){
+                                            for (auto &x : pegs) cout << x << " ";
+                                            cout << endl;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
+        // the second method use 1 big for loop
+        // for(int i=0; i<(1<<24); i++) {
+        //     vector<int> pegs(8);
+        //     bool inOrder = true;
+        //     for(int j=0; j<8; j++) {
+        //         int h=1;
+        //         h += ((i>>(3*j+0)&1) << 0);
+        //         h += ((i>>(3*j+1)&1) << 1);
+        //         h += ((i>>(3*j+2)&1) << 2);
+        //         pegs[j] = h;
+        //         if (j && pegs[j]<pegs[j-1]) inOrder = false;
+        //     }
+        //     if (!inOrder) continue;
+        //     if (compute(pegs, 0, 8) == 2023) {
+        //         for(auto &x: pegs) cout << x << " ";
+        //         cout << endl;
+        //     }
+        // }
     }
     return 0;
 }
