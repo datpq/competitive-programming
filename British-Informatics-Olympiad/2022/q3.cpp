@@ -1,9 +1,10 @@
-#include <iostream>
+#include <bits/stdc++.h>
+#define int long long
 
 using namespace std;
 
 string parks;
-long long ith, total;
+int ith, total;
 int n, cars[16];
 int chosen[16];
 
@@ -19,10 +20,16 @@ void search(int idx) {
 		char preferedSpace = 'A' + cars[idx];
 		char c = preferedSpace;
 		while (c > 'A' && chosen[c - 'A' - 1]) c--;
+        int delta = 0;
 		for (; c <= preferedSpace; c++) {
+            if (delta && total+delta<ith) {
+                total+=delta; continue;
+            }
 			chosen[cars[idx]] = true;
 			parks[idx] = c;
+            int oldTotal = total;
 			search(idx + 1);
+            delta = total-oldTotal;
 			chosen[cars[idx]] = false;
 		}
 	}
@@ -45,7 +52,7 @@ void permute(int idx) {
 	}
 }
 
-int main() {
+signed main() {
 	string carPlc;
 	cin >> carPlc >> ith;
 	n = carPlc.length();
@@ -57,8 +64,12 @@ int main() {
 
 	//3b "ghcdabefij"
 
-	// 3c
-	// 2: opnmlkjihgfedcba ponmlkjihgfedcab (in reverse order and swap 2 first or 2 last characters)
+	//3c
+	//120 n*(n-1)/2. let's try with n=3,4:
+	//n=3 bca, cab, acb. f(3)=3*2/2=3
+	//n=4 (n=3)a, (...b) -> ((cdb)a, (dbc)a, (bdc)a), (dcab, dacb, adcb)). f(4)=f(3)+3=4*3/2
+	//n=5 (n=4)a, (...b) -> f(5)= f(4)+4
+	//n+1 (n)a, (...b) -> f(n+1)=f(n)+n
 
 	//3d 6165817614720
 	//15! * (1/(2-1)(3-1) + 1/(2-1)(4-1) + 1/(2-1)(5-1) + ... + 1/(15-1)(16-1)
