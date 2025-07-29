@@ -3,6 +3,7 @@
 using namespace std;
 int n;
 vector<string> questions;
+int cnt = 0;
 
 int ask(string &q) {
     cout << "? " << q << endl;
@@ -53,18 +54,15 @@ signed main() {
         }
         questions.push_back(row);
     }
-    // for(auto &q : questions) {
-    //     cout << q << '\n';
-    // }
     for(int i=0; i<questions.size(); i++) {
         int ans = ask(questions[i]);
         if (ans % 2 == 0) continue;
         int idxA = getIndex(questions[i], '0');
         string q = questions[i];
-        for(int j=i; j>=0; j--) {
+        for(int j=i-1; j>=0; j--) {
             char c = questions[j][idxA];
             for(int k=0; k<n; k++) {
-                if (questions[j][k] == c) {
+                if (questions[j][k] != c) {
                     q[k] = '0';
                 }
             }
